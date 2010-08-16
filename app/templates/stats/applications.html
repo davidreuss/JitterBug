@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>JitterBug</title>
+    <link rel="stylesheet" href="/style/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="screen">
+
+    <script type="text/javascript" src="/_utils/script/jquery.js"></script>
+    <script type="text/javascript" src="/script/jquery-ui.js"></script>
+    <script type="text/javascript" src="/vendor/highcharts/script/highcharts.js"></script>
+    <script type="text/javascript" src="/script/global.js"></script>
+    <script type="text/javascript" src="/script/stats.js"></script>
+</head>
+<body>
+        
+    <div id="header">
+        <h1>JitterBug</h1>
+        <ul id="navigation">
+            <li><a href="/">Browse</a></li>
+            <li><a href="/stats/">Statistics</a></li>
+        </ul>
+    </div>
+    
+    <div id="searchbar">
+        <form action="/" method="get">
+            <label>Show
+                <select name="show">
+                    {{#shows}}
+                    <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/shows}}
+                </select>
+            </label>
+            <label>Period
+                <select name="period">
+                    {{#periods}}
+                    <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/periods}}
+                </select>
+            </label>
+            <label>Unique
+                <input type="checkbox" value="true" name="unique" {{unique_checked}} />
+            </label>
+            <input type="submit" value="Search" />
+        </form>
+    </div>
+    
+    <div id="content">
+        <div id="pie" style="height: 500px"></div>
+        
+        <script type="text/javascript">
+		
+			var chart;
+			$(document).ready(function() {
+				chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'pie',
+						margin: [20,0,20,0]
+					},
+					title: {
+						text: ''
+					},
+					plotArea: {
+						shadow: null,
+						borderWidth: null,
+						backgroundColor: null
+					},
+					tooltip: {
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
+						}
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: false,
+								formatter: function() {
+									if (this.y > 5) return this.point.name;
+								},
+								color: 'black',
+								style: {
+									font: '13px Trebuchet MS, Verdana, sans-serif'
+								}
+							}
+						}
+					},
+					legend: {
+						layout: 'vertical',
+						style: {
+							left: '20px',
+							bottom: 'auto',
+							right: 'auto',
+							top: '20px'
+						}
+					},
+				    series: [{
+						type: 'pie',
+						name: 'Application logs',
+						data: [
+						{{#total}}
+                            ['{{application}}', {{percent}}],
+                        {{/total}}
+						]
+					}]
+				});
+			});
+				
+		</script>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,41 @@
+<div id="error_content">
+    <h2>{{resource}} <span class="application">{{application}}</span></h2>
+    <h3><span class="codetype">({{code}}) {{type}}</span> :: {{message}}</h3>
+    
+    <ul class="data-navigation">
+        <li><a href="/" name="file">File</a></li>
+        <li><a href="/" name="trace">Trace</a></li>
+        {{#data}}
+        <li><a href="/" name="{{key}}">{{name}}</a></li>
+        {{/data}}
+    </ul>
+        
+    <div class="data data-file">
+        <b>{{file}}:{{line}}</b><br>
+        {{#content}}
+            <pre class="brush: {{language}}; first-line: {{first_line}}; highlight: {{line}}">{{content}}</pre>
+        {{/content}}
+    </div>
+        
+    <div class="data data-trace">
+        {{#trace}}
+            <b>{{file}}:{{line}}</b><br>
+            {{#content}}
+            <pre class="brush: {{language}}; first-line: {{first_line}}; highlight: {{line}}">{{content}}</pre>
+            {{/content}}
+        {{/trace}}
+    </div>
+    
+    {{#data}}
+    <div class="data data-{{key}}">
+        {{{table}}}
+    </div>
+    {{/data}}
+      
+    <script type="text/javascript">
+        SyntaxHighlighter.highlight();
+        $("#error_content ul.data-navigation li:first a").trigger("click");
+        $("#error_content .data table tr:odd").addClass("odd");
+    </script>
+</div>
+

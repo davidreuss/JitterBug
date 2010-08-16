@@ -1,0 +1,120 @@
+[
+  {
+    "from" : "",
+    "to" : "_list/browse/hour",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "limit" : 100,
+      "period" : "last100",
+      "summarize" : "hour",
+      "application" : "*",
+      "startkey" : ["*", {}],
+      "endkey" : ["*"]
+    }
+  },
+  {
+    "from" : "/browse/:application/last100/:summarize/*",
+    "to" : "_list/browse/:summarize/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "limit" : 100,
+      "period" : "last100",
+      "summarize" : ":summarize",
+      "application" : ":application",
+      "startkey" : [":application", {}],
+      "endkey" : [":application"]
+    }
+  },
+  {
+    "from" : "/browse/last100/:summarize/*",
+    "to" : "_list/browse/:summarize/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "limit" : 100,
+      "period" : "last100",
+      "summarize" : ":summarize",
+      "application" : "*",
+      "startkey" : ["*", {}],
+      "endkey" : ["*"]
+    }
+  },
+  {
+    "from" : "/browse/:application/:period/:summarize/*",
+    "to" : "_list/browse/:summarize/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "period" : ":period",
+      "summarize" : ":summarize",
+      "application" : ":application"
+    }
+  },
+  {
+    "from" : "/browse/:period/:summarize/*",
+    "to" : "_list/browse/:summarize/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "period" : ":period",
+      "summarize" : ":summarize",
+      "application" : "*"
+    }
+  },
+  {
+    "from" : "/stats/applications/:period/unique/:unique/*",
+    "to" : "_list/stats_applications/day/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "period" : ":period",
+      "unique" : ":unique"
+    }
+  },
+  {
+    "from" : "/stats/errors/today/unique/:unique/*",
+    "to" : "_list/stats_errors/hour/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "period" : "today",
+      "unique" : ":unique"
+    }
+  },
+  {
+    "from" : "/stats/errors/:period/unique/:unique/*",
+    "to" : "_list/stats_errors/day/*",
+    "query" : {
+      "descending" : true,
+      "group" : true,
+      "period" : ":period",
+      "unique" : ":unique"
+    }
+  },
+  {
+    "from" : "/applications",
+    "to" : "_list/applications/day",
+    "query" : {
+      "group" : true,
+      "group_level" : 1
+    }
+  },
+  {
+    "from" : "/error/:doc",
+    "to" : "_show/error/:doc"
+  },
+  {
+    "from" : "script/*",
+    "to" : "script/*"
+  },
+  {
+    "from" : "style/*",
+    "to" : "style/*"
+  },
+  {
+    "from" : "vendor/*",
+    "to" : "vendor/*"
+  }
+]

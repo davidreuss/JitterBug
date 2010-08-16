@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>JitterBug</title>
+    <link rel="stylesheet" href="/style/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/vendor/syntaxhighlighter/style/shCore.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/vendor/syntaxhighlighter/style/shThemeDefault.css" type="text/css" media="screen">
+
+    <script type="text/javascript" src="/_utils/script/jquery.js"></script>
+    <script type="text/javascript" src="/script/jquery-ui.js"></script>
+    <script type="text/javascript" src="/vendor/syntaxhighlighter/script/shCore.js"></script>
+    <script type="text/javascript" src="/vendor/syntaxhighlighter/script/shBrush.js"></script>
+    <script type="text/javascript" src="/script/global.js"></script>
+    <script type="text/javascript" src="/script/browse.js"></script>
+</head>
+<body>
+        
+    <div id="header">
+        <h1>JitterBug</h1>
+        <ul id="navigation">
+            <li><a href="/">Browse</a></li>
+            <li><a href="/stats/">Statistics</a></li>
+        </ul>
+    </div>
+    
+    <div id="searchbar">
+        <form action="/" method="get">
+            <label>Period
+                <select name="period">
+                    {{#periods}}
+                    <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/periods}}
+                </select>
+            </label>
+            <label>Summarize
+                <select name="summarize">
+                    {{#summarize}}
+                    <option value="{{value}}" {{selected}}>{{label}}</option>
+                    {{/summarize}}
+                </select>
+            </label>
+            <label>Application
+                <select name="application">
+                    
+                </select>
+                <script type="text/javascript">
+                    $('#searchbar form select[name="application"]').load("/applications?selected={{application}}");
+                </script>
+            </label>
+            <input type="submit" value="Search" />
+        </form>    
+    </div>
+    
+    <div id="content">
+        <div id="error_list">
+            <table>
+                <!--
+                <thead>
+                    <tr>
+                        <th>Logtime</th>
+                        <th>Resource</th>
+                        <th>Message</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>-->
+                <tbody>
+                    {{#logs}}
+                    <tr id="doc{{id}}">
+                        <td>{{date}}</td>
+                        <td>{{time}}</td>
+                        <td><span class="count count{{count}}">{{count}}</span> {{resource}}</td>
+                        <td>{{application}}</td>
+                        <td>{{type}}</td>
+                    </tr>
+                    {{/logs}}
+                </tbody>
+            </table>
+        </div>
+        <div id="error_display"></div>
+    </div>
+    
+</body>
+</html>
